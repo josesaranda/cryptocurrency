@@ -1,9 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
 import { FetchService } from "./FetchService";
-import { Account } from '../models/Account';
-import { Service } from "./Service";
 
 @Injectable({
     providedIn: 'root'

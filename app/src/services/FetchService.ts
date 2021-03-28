@@ -26,7 +26,6 @@ export class FetchService<T> implements Service<T> {
 
     findOne(id: string): Promise<T> {
         this.checkInit();
-        console.log('Host', environment.host + '/' + this.path);
         return this.httpClient.get<T>(environment.host + '/' + this.path + id).toPromise();
     }
 
