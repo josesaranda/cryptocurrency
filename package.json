@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "This project is an example of how to use NestJS and Angular together.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:server": "cd server && npm start",
+    "start:app": "cd app && npm start"
   },
   "author": "Jose Sanchez Aranda",
   "license": "ISC"
