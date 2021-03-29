@@ -20,7 +20,6 @@ export class FetchService<T> implements Service<T> {
 
     findAll(): Promise<T[]>{
         this.checkInit();
-        console.log('Host', environment.host + '/' + this.path);
         return this.httpClient.get<T[]>(environment.host + '/' + this.path).toPromise();
     }
 
