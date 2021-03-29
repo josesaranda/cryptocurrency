@@ -1,9 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { AccountService } from 'src/services/AccountService';
+import { Component } from '@angular/core';
 import { ExchangeService } from 'src/services/ExchangeService';
-import { Account } from '../models/Account';
+import { wait } from 'src/util';
 
 @Component({
   selector: 'app-root',
@@ -11,36 +8,27 @@ import { Account } from '../models/Account';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'app';
-
-  displayedColumns: string[] = ['account', 'category', 'tag', 'balance', 'availableBalance'];
-  dataSource = new MatTableDataSource<Account>([]);
- 
   exchange?: number;
-
-  @ViewChild(MatSort) sort!: MatSort;
+  loaded: boolean = false;
 
   constructor(
-    private readonly accountService: AccountService,
-    private readonly exchangeService: ExchangeService
+    public readonly exchangeService: ExchangeService
   ){}
 
-  async ngAfterViewInit() {
-    this.exchange = (await this.getExchange()).value;
-    let accounts = await this.findAllAccounts();
-    this.dataSource.data = accounts;
-    this.dataSource.sort = this.sort;
+  ngAfterViewInit() {
+    this.loadApp();
   }
 
-  private async getExchange(){
+  private loadApp = async () => {
+    await wait(1000); 
+    this.exchange = await this.getExchange();
+    this.loaded = true;
+    this.exchangeService.subscribeToExchange().subscribe(value => {
+      this.exchange = value;
+    });
+  }
+
+  private getExchange(){
     return this.exchangeService.getExchange();
-  }
-
-  private async findAllAccounts(){
-    return this.accountService.findAll();
-  }
-
-  btcToDollars(btc: number): string {
-    return (btc * this.exchange!).toFixed(2);
   }
 }
