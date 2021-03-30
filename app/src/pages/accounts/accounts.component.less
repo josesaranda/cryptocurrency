@@ -2,12 +2,22 @@
     position: relative;
     box-sizing: border-box;
 
-    .green {
-        background-color: green;
+    .background-green {
+        animation: blinkBackgroundGreen 1s 5;
     }
 
-    .red {
-        background-color: red;
+    .background-red {
+        animation: blinkBackgroundRed 1s 5;
+    }
+
+    @keyframes blinkBackgroundGreen {
+        0% {background: green};
+        100% {background: transparent};
+    }
+
+    @keyframes blinkBackgroundRed {
+        0% {background: red};
+        100% {background: transparent};
     }
 
     table {
