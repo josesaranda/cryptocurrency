@@ -20,10 +20,7 @@ async function bootstrap() {
     setInterval(() => {
       let account = appService.findRandomAccount();
       let randomBalance = Math.random() * 15;
-      account.balance = randomBalance;
-      account.availableBalance = randomBalance;
-      let { id, ...rest} = account;
-      appService.updateAccount(id, rest);
+      account = appService.updateAccount(account.id, {balance: randomBalance, availableBalance: randomBalance});
       io.emit('new:balance', account);
     },12000);
   });
