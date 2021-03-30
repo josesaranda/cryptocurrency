@@ -23,7 +23,7 @@ export class AppComponent {
     await wait(1000); 
     this.exchange = await this.getExchange();
     this.loaded = true;
-    this.exchangeService.subscribeToExchange().subscribe(value => {
+    this.exchangeService.observeExchange().subscribe(value => {
       this.exchange = value;
     });
   }

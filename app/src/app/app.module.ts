@@ -8,6 +8,9 @@ import { AccountsModule } from 'src/pages/accounts/accounts.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { DetailsModule } from 'src/pages/details/details.module';
+import { MatCardModule } from '@angular/material/card';
+import { DetailsGuard } from 'src/pages/details/details.guard';
 
 @NgModule({
   declarations: [
@@ -21,8 +24,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatIconModule,
     HttpClientModule,
     AccountsModule,
+    DetailsModule,
     MatProgressSpinnerModule
   ],
+  providers: [DetailsGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
