@@ -3,10 +3,19 @@
   "version": "1.0.0",
   "description": "This project is an example of how to use NestJS and Angular together.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start:server": "cd server && npm start",
-    "start:app": "cd app && npm start"
+    "start:app": "cd app && npm start",
+    "start": "concurrently \"npm run start:server\" \"npm run start:app\"",
+    "install:app": "cd app && npm install",
+    "install:server": "cd server && npm install",
+    "postinstall": "npm run install:app && npm run install:server",
+    "clean:app": "cd app && rimraf -rf node_modules",
+    "clean:server": "cd server && rimraf -rf node_modules dist"
   },
   "author": "Jose Sanchez Aranda",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "rimraf": "^3.0.2"
+  }
 }
