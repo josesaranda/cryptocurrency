@@ -1,0 +1,28 @@
+@import '../../styles.less';
+
+:host {
+    position: relative;
+    box-sizing: border-box;
+
+    table {
+        width: 100%;
+    }
+
+    .color-green {
+        animation: blinkColorGreen 1s 5;
+    }
+
+    .color-red {
+        animation: blinkColorRed 1s 5;
+    }
+
+    @keyframes blinkColorGreen {
+        0% {color: green};
+        100% {color: transparent};
+    }
+
+    @keyframes blinkColorRed {
+        0% {color: red};
+        100% {color: transparent};
+    }
+}

@@ -1,1 +1,67 @@
-Details
+<section class="container">
+    <mat-card>
+        <h3>{{account?.account}}</h3>
+        <h1 id="balance">{{account?.balance?.toFixed(4)}} BTC <span *ngIf="account">(${{btcToDollars(account.balance)}})</span></h1>
+        <h5>Available balance: {{account?.availableBalance?.toFixed(4)}} BTC <span *ngIf="account">(${{btcToDollars(account.availableBalance)}})</span></h5>
+    </mat-card>
+</section>
+<section class="container">
+    <mat-card>
+        <h1>Statement</h1>
+        <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.date | date: 'dd-MM-YYYY'}} </td>
+        </ng-container>
+
+        <!-- Order Id Column -->
+        <ng-container matColumnDef="orderId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Id</th>
+            <td mat-cell *matCellDef="let element"> {{element.orderId}} </td>
+        </ng-container>
+
+        <!-- Order Code Column -->
+        <ng-container matColumnDef="orderCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.orderCode}} </td>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        </ng-container>
+
+        <!-- Debit Column -->
+        <ng-container matColumnDef="debit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Debit </th>
+            <td mat-cell *matCellDef="let element">
+                <span *ngIf="element.debit">
+                    {{element.debit.toFixed(4)}} BTC <br> ${{btcToDollars(element.debit)}} 
+                </span>
+            </td>
+        </ng-container>
+
+        <!-- Available credit Column -->
+        <ng-container matColumnDef="credit">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Credit </th>
+            <td mat-cell *matCellDef="let element">
+                <span *ngIf="element.credit">
+                    {{element.credit.toFixed(4)}} BTC <br> ${{btcToDollars(element.credit)}} 
+                </span>
+            </td>
+        </ng-container>
+
+        <!-- Available balance Column -->
+        <ng-container matColumnDef="balance">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Balance </th>
+            <td mat-cell *matCellDef="let element"> {{element.balance.toFixed(4)}} BTC <br> $
+                {{btcToDollars(element.balance)}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr class="cursor-pointer hover-grey" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
+</section>

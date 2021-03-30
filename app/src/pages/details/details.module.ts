@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsComponent } from './details.component';
+import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -9,7 +13,11 @@ import { DetailsComponent } from './details.component';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule 
+    BrowserAnimationsModule,
+    RouterModule,
+    MatCardModule,
+    MatTableModule,
+    MatSortModule
   ],
   bootstrap: [DetailsComponent]
 })
