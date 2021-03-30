@@ -2,7 +2,7 @@
 
 This project is an example of how to use NestJS and Angular together.
 
-## Requisites
+## Requirements
 
 **Node** and **npm** installed
 
@@ -16,6 +16,19 @@ The structure of this project has been splitted in different parts (server, app)
 - Angular
 - NestJS
 - Typescript
+- Socket.io
+
+## Installation
+
+In root folder, run:
+
+`npm install`
+
+## Execution
+
+In root folder, run:
+
+`npm start`
 
 ## Project goals
 
