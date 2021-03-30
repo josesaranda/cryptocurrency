@@ -5,3 +5,7 @@ export function wait(milliseconds: number): Promise<boolean> {
         }, milliseconds);
     });
 }
+
+export function btcToDollars(btc: number, exchange: number): number{
+    return btc * exchange;
+}
