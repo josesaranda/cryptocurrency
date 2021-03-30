@@ -1,4 +1,7 @@
-export const accounts = [
+import { Transaction, Account, TransactionType } from './models';
+import { v4 } from 'uuid';
+
+export const accounts: Account[] = [
     {id: 1, account: "Joe account", category: "Category 1", tag: "tag 1", balance: 0, availableBalance: 0},
     {id: 2, account: "peter account", category: "Category 2", tag: "tag 1", balance: 1, availableBalance: 1},
     {id: 3, account: "John account", category: "Category 3", tag: "tag 2", balance: 2, availableBalance: 2},
@@ -15,3 +18,30 @@ export const accounts = [
     {id: 14, account: "Mikel account", category: "Category 4", tag: "tag 3", balance: 13, availableBalance: 13},
     {id: 15, account: "Rob account", category: "Category 4", tag: "tag 5", balance: 14, availableBalance: 14}
 ];
+
+export const transactions = randomTransactions();
+
+function randomTransactions(): Transaction[] {
+    let transactions: Transaction[] = [];
+    accounts.forEach(account => {
+        let random = (Math.random() * (10 - 1)) + 1;
+        for(let i = 0; i<3; i++){
+            let type = (Math.round(Math.random()) === 0) ? TransactionType.RECEIVED : TransactionType.SENT;
+            let transaction: Transaction = {
+                accountId: account.id,
+                orderId: v4(),
+                orderCode: v4(),
+                balance: random,
+                type,
+                date: Date.now()
+            };
+            if(type === TransactionType.RECEIVED){
+                transaction.credit = Math.random();
+            }else{
+                transaction.debit = Math.random();
+            }
+            transactions.push(transaction);
+        }
+    });
+    return transactions;
+}
