@@ -1,14 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { accounts as accountsFromDB } from './db';
-
-export type Account = {
-  id: number;
-  account: string;
-  category: string;
-  tag: string;
-  balance: number;
-  availableBalance: number;
-};
+import { accounts as accountsFromDB, transactions as transactionsFromDB } from './db';
+import { Transaction, Account } from './models';
 
 const MAX_BTC_VALUE = 12000;
 const MIN_BTC_VALUE = 5000;
@@ -17,6 +9,7 @@ const MIN_BTC_VALUE = 5000;
 export class AppService {
 
   private accounts: Account[] = accountsFromDB;
+  private transactions : Transaction[] = transactionsFromDB;
   
   findAllAccounts(): Account[] {
     return this.accounts;
@@ -24,6 +17,10 @@ export class AppService {
 
   findOneAccount(id: number){
     return this.accounts.find(acc => acc.id === id);
+  }
+
+  findOneAccountTransactions(id: number): Transaction[]{
+    return this.transactions.filter(trans => trans.accountId === id);
   }
 
   findRandomAccount(): Account {
