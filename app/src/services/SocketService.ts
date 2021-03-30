@@ -30,7 +30,6 @@ export class SocketService {
 
     public onNewAccount(callback: (value: Account) => void){
         this.checkConnection();
-        console.log('on here');
         this.socket!.on('new:balance', (value: Account) => {
             callback(value);
         });

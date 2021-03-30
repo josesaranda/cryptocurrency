@@ -5,6 +5,7 @@ import { Account } from '../models/Account';
 import { Service } from "./Service";
 import { BehaviorSubject } from "rxjs";
 import { SocketService } from "./SocketService";
+import { Transaction } from "src/models/Transaction";
 
 @Injectable({
     providedIn: 'root'
@@ -16,14 +17,26 @@ export class AccountService implements Partial<Service<Account>> {
     constructor(httpClient: HttpClient){
         this.fetchService = new FetchService<Account>(httpClient);
         this.fetchService.init('accounts');
-        this.socketAccount();
     }
 
     findAll(): Promise<Account[]> {
         return this.fetchService.findAll();
     }
 
-    socketAccount(){
+    findOne(id: number): Promise<Account> {
+        return this.fetchService.findOne(id);
+    }
+
+    findOneTransactions(id: number): Promise<Transaction[]> {
+        return this.fetchService.fetch<Transaction[]>('get','accounts/' + id + '/transactions');
+    }
+
+    observeAccount(): BehaviorSubject<Account | undefined> {
+        this.socketAccount();
+        return this.changedAccount;
+    }
+
+    private socketAccount(){
         let socketService = SocketService.getInstance();
         socketService.connect();
         socketService.onNewAccount(value => {
@@ -31,7 +44,4 @@ export class AccountService implements Partial<Service<Account>> {
         });
     }
 
-    onChangeAccount(): BehaviorSubject<Account | undefined> {
-        return this.changedAccount;
-    }
 }

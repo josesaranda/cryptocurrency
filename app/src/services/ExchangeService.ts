@@ -9,12 +9,11 @@ import { SocketService } from "./SocketService";
 })
 export class ExchangeService {
     private exchange = new BehaviorSubject<number | undefined>(undefined);
-    private fetchService!: FetchService<{value: number}>;
+    private fetchService!: FetchService;
 
     constructor(httpClient: HttpClient){
         this.fetchService = new FetchService<{value: number}>(httpClient);
         this.fetchService.init('');
-        this.socketExchange();
     }
 
     async getExchange(){
@@ -25,15 +24,16 @@ export class ExchangeService {
         return this.exchange.getValue();
     }
 
-    socketExchange(){
+    observeExchange(): BehaviorSubject<number | undefined>{
+        this.socketExchange();
+        return this.exchange;
+    }
+
+    private socketExchange(){
         let socketService = SocketService.getInstance();
         socketService.connect();
         socketService.onNewExchange(value => {
             this.exchange.next(value);
         });
-    }
-
-    subscribeToExchange(): BehaviorSubject<number | undefined>{
-        return this.exchange;
     }
 }

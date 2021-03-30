@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Service } from "./Service";
 
-export class FetchService<T> implements Service<T> {
+export class FetchService<T = any> implements Service<T> {
 
     path!: string;
 
@@ -20,26 +20,27 @@ export class FetchService<T> implements Service<T> {
 
     findAll(): Promise<T[]>{
         this.checkInit();
-        return this.httpClient.get<T[]>(environment.host + '/' + this.path).toPromise();
+        return this.httpClient.get<T[]>([environment.host, this.path].join('/')).toPromise();
     }
 
-    findOne(id: string): Promise<T> {
+    findOne<Index = number | string>(id: Index): Promise<T> {
         this.checkInit();
-        return this.httpClient.get<T>(environment.host + '/' + this.path + id).toPromise();
+        return this.httpClient.get<T>([environment.host, this.path, id].join('/')).toPromise();
     }
 
     fetch<U>(method: 'get' | 'post' | 'put' | 'delete', route: string, body: any = {}): Promise<U> {
+        let fullPath = [environment.host, route].join('/');
         switch(method){
             case 'get':
-                return this.httpClient.get<U>(environment.host + '/' + route).toPromise();
+                return this.httpClient.get<U>(fullPath).toPromise();
             case 'post':
-                return this.httpClient.post<U>(environment.host + '/' + route, body).toPromise();
+                return this.httpClient.post<U>(fullPath, body).toPromise();
             case 'put':
-                return this.httpClient.put<U>(environment.host + '/' + route, body).toPromise();
+                return this.httpClient.put<U>(fullPath, body).toPromise();
             case 'delete':
-                return this.httpClient.delete<U>(environment.host + '/' + route).toPromise();
+                return this.httpClient.delete<U>(fullPath).toPromise();
             default:
-                return this.httpClient.get<U>(environment.host + '/' + route).toPromise();
+                return this.httpClient.get<U>(fullPath).toPromise();
         }
     }
 }
