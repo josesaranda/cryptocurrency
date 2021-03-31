@@ -1,11 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { FetchService } from "./FetchService";
-import { Account } from '../models/Account';
-import { Service } from "./Service";
 import { BehaviorSubject } from "rxjs";
-import { SocketService } from "./SocketService";
 import { Transaction } from "src/models/Transaction";
+import { Account } from '../models/Account';
+import { FetchService } from "./FetchService";
+import { Service } from "./Service";
+import { SocketService } from "./SocketService";
 
 @Injectable({
     providedIn: 'root'

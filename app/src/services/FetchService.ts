@@ -1,5 +1,4 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Service } from "./Service";
 
@@ -26,6 +25,21 @@ export class FetchService<T = any> implements Service<T> {
     findOne<Index = number | string>(id: Index): Promise<T> {
         this.checkInit();
         return this.httpClient.get<T>([environment.host, this.path, id].join('/')).toPromise();
+    }
+
+    createOne(element: Omit<T,"id">): Promise<T> {
+        this.checkInit();
+        return this.httpClient.post<T>([environment.host, this.path].join('/'), element).toPromise();
+    }
+
+    updateOne(id: number, element: Omit<T, "id">): Promise<T> {
+        this.checkInit();
+        return this.httpClient.put<T>([environment.host, this.path, id].join('/'), element).toPromise();
+    }
+
+    deleteOne(id: number): Promise<boolean> {
+        this.checkInit();
+        return this.httpClient.delete<boolean>([environment.host, this.path, id].join('/')).toPromise();
     }
 
     fetch<U>(method: 'get' | 'post' | 'put' | 'delete', route: string, body: any = {}): Promise<U> {

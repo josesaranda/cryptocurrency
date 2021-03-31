@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  host: 'http://localhost:3000/api'
+  host: 'http://localhost:3000/api',
+  socket: {
+    host: "http://localhost:3001",
+    path: "/socket"
+  }
 };
 
 /*

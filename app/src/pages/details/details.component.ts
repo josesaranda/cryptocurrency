@@ -2,13 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Transaction } from 'src/models/Transaction';
 import { AccountService } from 'src/services/AccountService';
 import { ExchangeService } from 'src/services/ExchangeService';
 import { btcToDollars } from 'src/util';
 import { Account } from '../../models/Account';
-import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
-import { Transaction } from 'src/models/Transaction';
 
 @Component({
   selector: 'app-details',
